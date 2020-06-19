@@ -28,7 +28,7 @@ import axios from 'axios';
 
 async getBooks() {
   try {
-    const res = await axios.get('http://127.0.0.1/rest_api/obtener.php');
+    const res = await axios.get('http://localhost/React_crud/RestApi_PHP/obtener.php');
     console.log(res.data)
         this.setState({
             books:res.data
@@ -44,9 +44,9 @@ async createBook(e) {
    
   try {
     if(this.state.envio){
-    const {nombre, apellido, sueldo} = this.state;
-    const obj1 = {nombre:nombre, apellido:apellido, sueldo:sueldo };
-    await axios.post('http://127.0.0.1/rest_api/crear.php',obj1);
+    const {title, author, synopsis, price, stock} = this.state;
+    const obj1 = {title:title, author:author, synopsis:synopsis, price:price, stock: stock };
+    await axios.post('http://localhost/React_crud/RestApi_PHP/crear.php',obj1);
     
      }else{
       const {id, nombre, apellido, sueldo} = this.state;
@@ -83,7 +83,7 @@ async createBook(e) {
       try {
      
         if(window.confirm("esta seguro de querer elinarlo")){
-          await axios.post('http://127.0.0.1/rest_api/Eliminar.php',obj); 
+          await axios.post('http://127.0.0.1/rest_api/eliminar.php',obj); 
           this.getBooks();
         }
          
