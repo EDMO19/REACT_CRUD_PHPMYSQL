@@ -8,7 +8,7 @@ $id = $data['id'];
 if(!empty($id)){
     $modelo = new Conexion();
     $db = $modelo->getConnection();
-    $sql = "Delete from products where id = '$id'";
+    $sql = "Delete from books where id = '$id'";
     $query = $db->prepare($sql);
     $query->execute();
 

@@ -2,7 +2,7 @@
     class Conexion {
         public function getConnection(){
             $host = "localhost";
-            $db = "react_crud";
+            $db = "library";
             $user = "root";
             $pass = "root";
 
