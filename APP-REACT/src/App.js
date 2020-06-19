@@ -5,31 +5,33 @@ import axios from 'axios';
    
     constructor() {
       super();
-      this.crearEmpleado = this.crearEmpleado.bind(this);
-      this.escribirEstado = this.escribirEstado.bind(this);
-      this.editar = this.editar.bind(this);
+      this.createBook = this.createBook.bind(this);
+      this.writeState = this.writeState.bind(this);
+      this.edit = this.edit.bind(this);
    //this.eliminar = this.eliminar.bind(this);
    this.state = {
-          
-          empleado:[],
+          books:[],
           id:'',
-          nombre:'',
-          apellido:'',
-          sueldo:'',
+          title:'',
+          author:'',
+          synopsis:'',
+          price:'',
+          stock:'',
           envio:true
       };
     }
 
     componentDidMount() {
-      this.getEmpleados();
+      this.getBooks();
     
    }
 
-async getEmpleados() {
+async getBooks() {
   try {
     const res = await axios.get('http://127.0.0.1/rest_api/obtener.php');
+    console.log(res.data)
         this.setState({
-            empleado:res.data
+            books:res.data
           })
         
      } catch (error) {
@@ -37,7 +39,7 @@ async getEmpleados() {
      }
     }
 
-async crearEmpleado(e) {
+async createBook(e) {
    e.preventDefault();
    
   try {
@@ -57,30 +59,32 @@ async crearEmpleado(e) {
         console.error(error);
       }
      this.setState({
-       id:'',
-       nombre:'',
-       apellido:'',
-       sueldo:'',
-       envio:true,
+        id:'',
+        title:'',
+        author:'',
+        synopsis:'',
+        price:'',
+        stock:'',
+        envio:true,
      })
-     this.getEmpleados();
+     this.getBooks();
     }
 
-    escribirEstado(e) {
+    writeState(e) {
      const {name , value} = e.target;
      this.setState({
       [name]:value
        });
      }
 
-   async eliminar(e,id) {
+   async delete(e,id) {
       e.preventDefault();
       const obj = {id:id}; 
       try {
      
         if(window.confirm("esta seguro de querer elinarlo")){
           await axios.post('http://127.0.0.1/rest_api/Eliminar.php',obj); 
-          this.getEmpleados();
+          this.getBooks();
         }
          
        } catch (error) {
@@ -88,20 +92,23 @@ async crearEmpleado(e) {
       }
     }
     
-async editar(e, id){
+async edit(e, id){
   e.preventDefault();
   const obj = {id:id}; 
   try {
     const res = await axios.post('http://127.0.0.1/rest_api/obtenerUno.php',obj);
     this.setState({
+
       id:res.data[0].id,
-      nombre:res.data[0].nombre,
-      apellido:res.data[0].apellido,
-      sueldo:res.data[0].sueldo,
+      title:res.data[0].title,
+      author:res.data[0].author,
+      synopsis:res.data[0].synopsis,
+      price:res.data[0].price,
+      stock:res.data[0].stock,
       envio:false
     });    
     console.log(res);
-        this.getEmpleados();
+        this.getBooks();
        } catch (error) {
         console.error(error);
       }
@@ -115,33 +122,42 @@ async editar(e, id){
       <nav className="navbar navbar-dark bg-dark mb-2">
   <span className="navbar-brand mb-0 h1">CRUD-REACT-PHP-MYSQL</span>
       </nav>
-      <form onSubmit={this.crearEmpleado}>
-        <input type="text"  name="nombre"   onChange={this.escribirEstado} 
-        value={this.state.nombre} placeholder="nombre"/>
+      <form onSubmit={this.createBook}>
+        <input type="text"  name="title"   onChange={this.writeState} 
+        value={this.state.title} placeholder="title"/>
 
-          <input type="text" name="apellido"  onChange={this.escribirEstado} 
-          value={this.state.apellido} placeholder="apellido"/>
+        <input type="text" name="author"  onChange={this.writeState} 
+        value={this.state.author} placeholder="author"/>
 
-          <input type="number"  name="sueldo" onChange={this.escribirEstado}
-          value={this.state.sueldo} placeholder="sueldo"/>
+        <input type="text"  name="synopsis" onChange={this.writeState}
+        value={this.state.synopsis} placeholder="synopsis"/>
+
+        <input type="number"  name="price" onChange={this.writeState}
+        value={this.state.price} placeholder="price"/>
+
+        <input type="number"  name="stock" onChange={this.writeState}
+        value={this.state.stock} placeholder="stock"/>
+
         <input type="submit" className="btn btn-success" value="Submit" />
       </form>   
        <div className="row p-3">
            
             {
-             this.state.empleado.map(item=>{
+             this.state.books.map(item=>{
                return (
                 
                  <div className="card p-2 m-2" key={item.id}>
                   <img  width="60" src="logo192.png" alt="img"></img>
                    <div className="card-body">
-                    <h6>{item.nombre}</h6>
-                    <h6>{item.apellido}</h6>
-                    <h6>{item.sueldo}</h6>
+                    <h6>{item.title}</h6>
+                    <h6>{item.author}</h6>
+                    <h6>{item.synopsis}</h6>
+                    <h6>{item.price}</h6>
+                    <h6>{item.stock}</h6>
                  <button className="btb btn-danger mx-2"
-                 onClick={(e)=>this.eliminar(e,item.id)}>delete</button>
+                 onClick={(e)=>this.delete(e,item.id)}>delete</button>
                  <button className="btb btn-info"
-                 onClick={(e)=>this.editar(e,item.id)}>edit</button>
+                 onClick={(e)=>this.edit(e,item.id)}>edit</button>
                  </div>
                  
                  </div>
