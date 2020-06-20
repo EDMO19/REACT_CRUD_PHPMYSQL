@@ -49,9 +49,9 @@ async createBook(e) {
     await axios.post('http://localhost/React_crud/RestApi_PHP/crear.php',obj1);
     
      }else{
-      const {id, nombre, apellido, sueldo} = this.state;
-      const obj2 = {id:id, nombre:nombre, apellido:apellido, sueldo:sueldo };
-      await axios.post('http://127.0.0.1/rest_api/modificar.php',obj2);
+      const {id, title, author, synopsis, price, stock} = this.state;
+      const obj2 = {id:id, title:title, author:author, synopsis: synopsis, price: price, stock: stock};
+      await axios.post('http://localhost/React_crud/RestApi_PHP/modificar.php',obj2);
      
      }
       
@@ -83,7 +83,7 @@ async createBook(e) {
       try {
      
         if(window.confirm("esta seguro de querer elinarlo")){
-          await axios.post('http://127.0.0.1/rest_api/eliminar.php',obj); 
+          await axios.post('http://localhost/React_crud/RestApi_PHP/eliminar.php',obj); 
           this.getBooks();
         }
          
@@ -96,9 +96,9 @@ async edit(e, id){
   e.preventDefault();
   const obj = {id:id}; 
   try {
-    const res = await axios.post('http://127.0.0.1/rest_api/obtenerUno.php',obj);
+    const res = await axios.post('http://localhost/React_crud/RestApi_PHP/obtenerUno.php',obj);
+    console.log(res);
     this.setState({
-
       id:res.data[0].id,
       title:res.data[0].title,
       author:res.data[0].author,

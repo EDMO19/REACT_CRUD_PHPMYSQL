@@ -7,7 +7,7 @@ $data = json_decode(file_get_contents("php://input"), true);
 $id = $data['id'];
 $modelo = new Conexion();
 $db = $modelo->getConnection();
-$sql = "Select * from products where id = '$id'";
+$sql = "Select * from books where id = '$id'";
 $query = $db->prepare($sql);
 $query->execute();
 
