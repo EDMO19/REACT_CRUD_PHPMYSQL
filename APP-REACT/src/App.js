@@ -23,7 +23,6 @@ import axios from 'axios';
 
     componentDidMount() {
       this.getBooks();
-    
    }
 
 async getBooks() {
@@ -123,21 +122,36 @@ async edit(e, id){
   <span className="navbar-brand mb-0 h1">CRUD-REACT-PHP-MYSQL</span>
       </nav>
       <form onSubmit={this.createBook}>
-        <input type="text"  name="title"   onChange={this.writeState} 
+        <div className="form-group">
+        <label>Title</label>
+        <input className="form-control" type="text"  name="title"   onChange={this.writeState} 
         value={this.state.title} placeholder="title"/>
+        </div>
 
-        <input type="text" name="author"  onChange={this.writeState} 
+        <div className="form-group">
+        <label>Author</label>
+        <input className="form-control" type="text" name="author"  onChange={this.writeState} 
         value={this.state.author} placeholder="author"/>
+        </div>
 
-        <input type="text"  name="synopsis" onChange={this.writeState}
+        <div className="form-group">
+        <label>Synopsis</label>
+        <textarea className="form-control" name="synopsis" onChange={this.writeState}
         value={this.state.synopsis} placeholder="synopsis"/>
+        </div>
 
-        <input type="number"  name="price" onChange={this.writeState}
+        <div className="form-group">
+        <label>Price</label>
+        <input className="form-control" type="number"  name="price" onChange={this.writeState}
         value={this.state.price} placeholder="price"/>
+        </div>
 
-        <input type="number"  name="stock" onChange={this.writeState}
+        <div className="form-group">
+        <label>Units in stock</label>
+        <input className="form-control" type="number"  name="stock" onChange={this.writeState}
         value={this.state.stock} placeholder="stock"/>
-
+        </div>
+        
         <input type="submit" className="btn btn-success" value="Submit" />
       </form>   
        <div className="row p-3">
